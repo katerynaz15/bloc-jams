@@ -5,19 +5,27 @@ $(document).ready(function() {
 	});
 
 
-  //var onHover = function(event) {
-    //console.log('Hover action triggered.');
-    //$(this).animate({'color: rgb(#AA3939)'});
-  //};
+  var setHover = function(event) {
+    console.log('Hover action triggered.');
+    $(this).css('color', 'red');
+  };
 
-  //var offHover = function(event) {
-    //console.log('Hover action triggered.');
-    //$(this).animate({'color: rgb(#AAA593)'});
-  //};
+  var changeColor = function(event) {
+    console.log('Off Hover action triggered.');
+    $(this).css('color', 'green');
+  };
 
-    //$('.hero-content h3').hover(onHover, offHover); 
+    $('.hero-content h3').hover(setHover, changeColor); 
     
   //$('.player-header-nav navbar')
+
+  //selling-points container
+  var changeSell = function(event) {
+    console.log("Change font");
+    $(this).css('font-size', '14px');
+  };
+
+  $('.selling-points container').click(changeSell);
 
 
 var onHoverAction = function(event) {

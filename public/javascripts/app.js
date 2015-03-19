@@ -93,6 +93,7 @@
 require.register("scripts/app", function(exports, require, module) {
 require("./landing");
 	require('./collection');
+	require('./album');
 });
 
 ;require.register("scripts/collection", function(exports, require, module) {
@@ -118,8 +119,11 @@ require("./landing");
  var updateCollectionView = function() {
    var $collection = $(".collection-container .row");
    $collection.empty();
+
+   newNum = Math.floor(Math.random() * 76) + 25; 
+   console.log(newNum)
  
-   for (var i = 0; i < 33; i++) {
+   for (var i = 0; i < newNum; i++) {
      var $newThumbnail = buildAlbumThumbnail();
      $collection.append($newThumbnail);
    }
@@ -141,19 +145,27 @@ $(document).ready(function() {
 	});
 
 
-  //var onHover = function(event) {
-    //console.log('Hover action triggered.');
-    //$(this).animate({'color: rgb(#AA3939)'});
-  //};
+  var setHover = function(event) {
+    console.log('Hover action triggered.');
+    $(this).css('color', 'red');
+  };
 
-  //var offHover = function(event) {
-    //console.log('Hover action triggered.');
-    //$(this).animate({'color: rgb(#AAA593)'});
-  //};
+  var changeColor = function(event) {
+    console.log('Off Hover action triggered.');
+    $(this).css('color', 'green');
+  };
 
-    //$('.hero-content h3').hover(onHover, offHover); 
+    $('.hero-content h3').hover(setHover, changeColor); 
     
   //$('.player-header-nav navbar')
+
+  //selling-points container
+  var changeSell = function(event) {
+    console.log("Change font");
+    $(this).css('font-size', '14px');
+  };
+
+  $('.selling-points container').click(changeSell);
 
 
 var onHoverAction = function(event) {
