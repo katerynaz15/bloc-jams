@@ -17,16 +17,16 @@ $(document).ready(function() {
 
     $('.hero-content h3').hover(setHover, changeColor); 
     
-  //$('.player-header-nav navbar')
+  
+  $('.player-header-nav').click(function(){
+    console.log("About to fade away");
+    $(this).fadeOut('slow');
+  });
 
-  //selling-points container
-  var changeSell = function(event) {
-    console.log("Change font");
-    $(this).css('font-size', '14px');
-  };
-
-  $('.selling-points container').click(changeSell);
-
+  $('.selling-points .point p').click(function() {
+    console.log("Being clicked");
+    $(this).css('font-size', '18px');
+  });
 
 var onHoverAction = function(event) {
      console.log('Hover action triggered.');
