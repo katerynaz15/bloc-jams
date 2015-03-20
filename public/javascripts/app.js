@@ -123,7 +123,7 @@ require.register("scripts/album", function(exports, require, module) {
      ]
  };
 
-  var createSongRow = function(songNumber, songName, songLength) {
+ var createSongRow = function(songNumber, songName, songLength) {
    var template =
        '<tr>'
      + '  <td class="col-md-1">' + songNumber + '</td>'
@@ -135,7 +135,7 @@ require.register("scripts/album", function(exports, require, module) {
    return $(template);
  };
 
-  var changeAlbumView = function(album) {
+ var changeAlbumView = function(album) {
    // Update the album title
    var $albumTitle = $('.album-title');
    $albumTitle.text(album.name);
@@ -162,16 +162,71 @@ require.register("scripts/album", function(exports, require, module) {
      $songList.append($newRow);
    }
  };
- 
+
  // This 'if' condition is used to prevent the jQuery modifications
  // from happening on non-Album view pages.
  //  - Use a regex to validate that the url has "/album" in its path.
  if (document.URL.match(/\/album.html/)) {
    // Wait until the HTML is fully processed.
    $(document).ready(function() {
-    changeAlbumView(albumPicasso);
+     changeAlbumView(albumPicasso);
    });
  }
+
+
+
+ // $('.album-header-information h3').click(function(){
+ //    var myNewAlbum = changeView(albumMarconi);
+ //    $(this).append(myNewAlbum);
+ //  });
+
+
+ //   var createRow = function(songNumber, songName, songLength) {
+ //   var template =
+ //       '<tr>'
+ //     + '  <td class="col-md-1">' + songNumber + '</td>'
+ //     + '  <td class="col-md-9">' + songName + '</td>'
+ //     + '  <td class="col-md-2">' + songLength + '</td>'
+ //     + '</tr>'
+ //     ;
+ 
+ //   return $(template);
+ // };
+  
+ //  var changeView = function(album) {
+ //   // Update the album title
+ //   var $albumTitle = $('.album-title');
+ //   $albumTitle.text(album.name);
+ 
+ //   // Update the album artist
+ //   var $albumArtist = $('.album-artist');
+ //   $albumArtist.text(album.artist);
+ 
+ //   // Update the meta information
+ //   var $albumMeta = $('.album-meta-info');
+ //   $albumMeta.text(album.year + " on " + album.label);
+ 
+ //   // Update the album image
+ //   var $albumImage = $('.album-image img');
+ //   $albumImage.attr('src', album.albumArtUrl);
+ 
+ //   // Update the Song List
+ //   var $songList = $(".album-song-listing");
+ //   $songList.empty();
+ //   var songs = album.songs;
+ //   for (var i = 0; i < songs.length; i++) {
+ //     var songData = songs[i];
+ //     var $newRow = createSongRow(i + 1, songData.name, songData.length);
+ //     $songList.append($newRow);
+ //   }
+ // };
+ // if (document.URL.match(/\/album.html/)) {
+ //   // Wait until the HTML is fully processed.
+ //   $(document).ready(function() {
+ //      changeView(albumMarconi);
+ //  });
+ // }
+
 });
 
 ;require.register("scripts/app", function(exports, require, module) {
@@ -184,7 +239,9 @@ require("./landing");
  var buildAlbumThumbnail = function() {
     var template =
         '<div class="collection-album-container col-md-2">'
-      + '  <img src="/images/album-placeholder.png"/>'
+       + '  <div class="collection-album-image-container">'
+   + '    <img src="/images/album-placeholder.png"/>'
+   + '  </div>'
       + '  <div class="caption album-collection-info">'
       + '    <p>'
       + '      <a class="album-name" href="/album.html"> Album Name </a>'
@@ -193,6 +250,8 @@ require("./landing");
       + '      <br/>'
       + '      X songs'
       + '      <br/>'
+      +	'	   X:XX Total Length'
+      + '      <br/>'
       + '    </p>'
       + '  </div>'
       + '</div>';
@@ -200,17 +259,48 @@ require("./landing");
    return $(template);
  };
 
+ var buildAlbumOverlay = function(albumURL) {
+    var template =
+        '<div class="collection-album-image-overlay">'
+      + '  <div class="collection-overlay-content">'
+      + '    <a class="collection-overlay-button" href="' + albumURL + '">'
+      + '      <i class="fa fa-play"></i>'
+      + '    </a>'
+      + '    &nbsp;'
+      + '    <a class="collection-overlay-button">'
+      + '      <i class="fa fa-plus"></i>'
+      + '    </a>'
+      + '  </div>'
+      + '</div>'
+      ;
+    return $(template);
+  };
+
  var updateCollectionView = function() {
    var $collection = $(".collection-container .row");
    $collection.empty();
 
+
    newNum = Math.floor(Math.random() * 76) + 25; 
    console.log(newNum)
+
+   var newNum = Math.floor(Math.random() * 76) + 25;
+   console.log(newNum);
+
  
    for (var i = 0; i < newNum; i++) {
      var $newThumbnail = buildAlbumThumbnail();
      $collection.append($newThumbnail);
    }
+
+   var onHover = function(event) {
+     $(this).append(buildAlbumOverlay("/album.html"));
+   };
+   var offHover = function(event) {
+    $(this).find('.collection-album-image-overlay').remove();
+  };
+
+  $collection.find('.collection-album-image-container').hover(onHover, offHover);
  };
 
 if (document.URL.match(/\/collection.html/)) {
