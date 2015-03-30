@@ -1,10 +1,9 @@
-  @import "landing";
-  @import "album";
-  @import "collection";
-  @import "player_bar";
-  @import "buttons";
-  @import "profile";
-  require("./profile");
+@import "landing";
+@import "album";
+@import "collection";
+@import "player_bar";
+@import "buttons";
+@import "profile";
 
 html {
   height: 100%;
