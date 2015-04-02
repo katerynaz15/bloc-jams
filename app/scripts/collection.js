@@ -43,14 +43,14 @@
    $collection.empty();
 
 
-   newNum = Math.floor(Math.random() * 76) + 25; 
-   console.log(newNum)
+   // newNum = Math.floor(Math.random() * 76) + 25; 
+   // console.log(newNum)
 
-   var newNum = Math.floor(Math.random() * 76) + 25;
-   console.log(newNum);
+   // var newNum = Math.floor(Math.random() * 76) + 25;
+   // console.log(newNum);
 
  
-   for (var i = 0; i < newNum; i++) {
+   for (var i = 0; i < 33; i++) {
      var $newThumbnail = buildAlbumThumbnail();
      $collection.append($newThumbnail);
    }
