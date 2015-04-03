@@ -357,6 +357,12 @@ require.register("scripts/album", function(exports, require, module) {
      controller: 'Collection.controller',
      templateUrl: '/templates/collection.html'
    });
+
+   $stateProvider.state('album', {
+     url: '/album',
+     templateUrl: '/templates/album.html',
+     controller: 'Album.controller'
+   });
  }]);
  
  // This is a cleaner way to call the controller than crowding it on the module definition.
@@ -380,14 +386,46 @@ require.register("scripts/album", function(exports, require, module) {
    ];
  }]);
 
-
-
  blocJams.controller('Collection.controller', ['$scope', function($scope) {
    $scope.albums = [];
 
     for (var i = 0; i < 33; i++) {
      $scope.albums.push(angular.copy(albumPicasso));
    }
+
+ }]);
+
+ blocJams.controller('Album.controller', ['$scope', function($scope) {
+   $scope.album = angular.copy(albumPicasso);
+
+  var hoveredSong = null;
+  var playingSong = null;
+ 
+    $scope.onHoverSong = function(song) {
+     hoveredSong = song;
+   };
+ 
+    $scope.offHoverSong = function(song) {
+     hoveredSong = null;
+   };
+
+    $scope.getSongState = function(song) {
+     if (song === playingSong) {
+       return 'playing';
+     }
+     else if (song === hoveredSong) {
+       return 'hovered';
+     }
+     return 'default';
+   };
+   
+    $scope.playSong = function(song) {
+      playingSong = song;
+    };
+ 
+    $scope.pauseSong = function(song) {
+      playingSong = null;
+    };
 
  }]);
 });
